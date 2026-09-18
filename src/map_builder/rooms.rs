@@ -1,7 +1,6 @@
 use super::MapArchitect;
 use crate::prelude::*;
 
-#[allow(unused)]
 pub struct RoomsArchitect {}
 
 impl MapArchitect for RoomsArchitect {
