@@ -9,6 +9,7 @@ mod movement;
 mod player_input;
 mod random_move;
 mod tooltips;
+mod use_item;
 
 use crate::prelude::*;
 
@@ -26,6 +27,7 @@ pub fn build_input_scheduler() -> Schedule {
 
 pub fn build_player_schedule() -> Schedule {
     Schedule::builder()
+        .add_system(use_item::use_item_system())
         .add_system(combat::combat_system())
         .flush()
         .add_system(movement::movement_system())
@@ -37,13 +39,14 @@ pub fn build_player_schedule() -> Schedule {
         .add_system(hud::hud_system())
         .add_system(end_turn::end_turn_system())
         .build()
-}
-
-pub fn build_monster_schedule() -> Schedule {
-    Schedule::builder()
+    }
+    
+    pub fn build_monster_schedule() -> Schedule {
+        Schedule::builder()
         .add_system(random_move::random_move_system())
         .add_system(chasing::chasing_system())
         .flush()
+        .add_system(use_item::use_item_system())
         .add_system(combat::combat_system())
         .flush()
         .add_system(movement::movement_system())
