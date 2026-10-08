@@ -24,6 +24,18 @@ pub fn hud(ecs: &SubWorld) {
         format!(" Health: {} / {}", player_health.current, player_health.max),
         ColorPair::new(WHITE, RED),
     );
+
+    let (player, map_level) = <(Entity, &Player)>::query()
+        .iter(ecs)
+        .map(|(entity, player)| (*entity, player.map_level))
+        .next()
+        .unwrap();
+    draw_batch.print_color_right(
+        Point::new(SCREEN_WIDTH * 2, 1),
+        format!("Dungeon Level: {}", map_level + 1),
+        ColorPair::new(YELLOW, BLACK),
+    );
+
     let player = <(Entity, &Player)>::query()
         .iter(ecs)
         .map(|(entity, _player)| *entity)
